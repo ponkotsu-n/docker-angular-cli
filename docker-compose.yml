@@ -1,0 +1,22 @@
+# > docker-compose build
+# > docker-compose up -d
+# > docker-compose exec main bash
+
+version: "3.3"
+services:
+  main:
+    build:
+        context: angular-cli
+        args:
+            - http_proxy=${http_proxy}
+            - https_proxy=${https_proxy}
+    command: /bin/sh -c "while true; do sleep 1; done"
+    env_file:
+        - common.env
+    ports:
+      - "4200:4200"
+    volumes:
+      - work-data:/work
+volumes:
+    work-data:
+        driver: local
